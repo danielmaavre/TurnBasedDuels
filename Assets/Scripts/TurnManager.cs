@@ -7,69 +7,80 @@ using UnityEngine;
 public class TurnManager : MonoBehaviour
 {
 
-    [SerializeField] PlayerManager player;
-    [SerializeField] PlayerManager enemy;
-    [SerializeField] ActionManager actionManager;
+    [SerializeField] GameObject playerPrefab;
+    [SerializeField] GameObject enemyPrefab;
+    PlayerManager playerManager;
+    PlayerManager enemyManager;
+    ActionManager actionManager;
 
-    public bool isTurnRunning = false;
-    int playerTurn;
-    int enemyTurn;
+    //Possible battle states    
+    public enum BattleStates {START, PLAYERTURN, ENEMYTURN, WON, LOST}
+    //Current battle state
+    public BattleStates battleState;
 
-    void Update()
-    {
-        
-        if(!isTurnRunning && player.tookAction && enemy.tookAction)
-        {
-            Debug.Log("Executing Turn");
-            ExecuteTurn();
-        }
-        
+    private void Start() {
+        actionManager = GetComponent<ActionManager>();
+        InstantiatePlayerEnemy();
+        battleState = BattleStates.START;
     }
 
-    private void ExecuteTurn()
+    private void Update() {
+          
+        //Takes action according to current battle state
+        switch (battleState)
+        {
+            case BattleStates.START:
+                CheckPriority(playerManager.speed, enemyManager.speed);
+                break;
+            case BattleStates.PLAYERTURN:
+                Debug.Log("Player Turn");
+                actionManager.TakeAction(playerManager,enemyManager);                
+                break;
+            case BattleStates.ENEMYTURN:
+                Debug.Log("Enemy Turn");
+                actionManager.TakeAction(enemyManager,playerManager);
+                break;
+            case BattleStates.WON:
+                break;
+            case BattleStates.LOST:
+                break;                                                                
+            default:
+                battleState = BattleStates.START;
+                break;
+        }        
+    }   
+
+    //First instantiate player and enemy
+    private void InstantiatePlayerEnemy()
     {
-        isTurnRunning = true;
-        CheckPriority(player.GetSpeed(),enemy.GetSpeed());
-        //ExecuteAction();
-        //ExecuteAction();
+        GameObject player = Instantiate(playerPrefab);
+        playerManager = player.GetComponent<PlayerManager>();
+        playerManager.fighterName = "Player";
+        GameObject enemy = Instantiate(enemyPrefab);
+        enemyManager  = enemy.GetComponent<PlayerManager>();
+        enemyManager.fighterName = "Enemy";
     }
 
     private void CheckPriority(float playerSpeed, float enemySpeed)
     {
         if(playerSpeed > enemySpeed)
         {
-            playerTurn = 1;
-            enemyTurn = 2;
-            Debug.Log("Player first");
+            battleState = BattleStates.PLAYERTURN;            
         }
         else if(enemySpeed > playerSpeed)
         {
-            enemyTurn = 1;
-            playerTurn = 2;
-            Debug.Log("Enemy first");
+            battleState = BattleStates.ENEMYTURN;
         }
         else if(enemySpeed == playerSpeed)
         {
             if(UnityEngine.Random.value < 0.5f)
             {
-                enemyTurn = 1;
-                playerTurn = 2;     
-                Debug.Log("Enemy first");          
+                battleState = BattleStates.PLAYERTURN;         
             }
             else
             {
-                playerTurn = 1;
-                enemyTurn = 2;
-                Debug.Log("Player first");
+                battleState = BattleStates.ENEMYTURN;
             }
         }
-       
-    }    
-
-    private void ExecuteAction(string action, string actor)
-    {
-                
-    }
-
-
+    }   
 }

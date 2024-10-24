@@ -4,25 +4,18 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    
+
     [Header("Stats")]
-    [SerializeField] float maxHP = 50f;
-    [SerializeField] float maxBlock = 30f;
-    [SerializeField] float atack = 10f;
-    [SerializeField] float defense = 0f;
-    [SerializeField] float speed = 5f;
+    public string fighterName;
+    public float maxHP = 50f;
+    public float currentHP = 50f;
+    public float maxBlock = 30f;
+    public float atack = 10f;
+    public float defense = 0f;
+    public float speed = 5f;
 
-    [Header("Turn")]
-    public bool tookAction = false;
-    public string action;
-
-    public float GetSpeed()
-    {
-        return speed;
-    }
-
-    public float GetMaxHP()
-    {
-        return maxHP;
-    }
+    [Header("TurnInfo")]
+    public int action = 0;
 
 }
