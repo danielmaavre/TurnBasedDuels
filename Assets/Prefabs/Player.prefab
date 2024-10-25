@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4563308227654422736}
   - component: {fileID: 6408718320103171267}
   - component: {fileID: 7604015252376427877}
+  - component: {fileID: -2277414674886492180}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -97,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34ec6da52b4f6e04293ce93b8351aa6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpSlider: {fileID: 0}
   fighterName: 
   maxHP: 50
   currentHP: 50
@@ -105,3 +107,15 @@ MonoBehaviour:
   defense: 0
   speed: 3
   action: 0
+--- !u!114 &-2277414674886492180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3722178777357565560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c4c7a8beb3d924bbd28b2107ca231f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

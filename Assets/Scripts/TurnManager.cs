@@ -34,11 +34,11 @@ public class TurnManager : MonoBehaviour
                 break;
             case BattleStates.PLAYERTURN:
                 Debug.Log("Player Turn");
-                actionManager.TakeAction(playerManager,enemyManager);                
+                actionManager.TakeAction(playerManager,enemyManager, playerManager.action);                
                 break;
             case BattleStates.ENEMYTURN:
                 Debug.Log("Enemy Turn");
-                actionManager.TakeAction(enemyManager,playerManager);
+                actionManager.TakeAction(enemyManager,playerManager, enemyManager.action);
                 break;
             case BattleStates.WON:
                 break;

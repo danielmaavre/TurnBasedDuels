@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
     
 
     [Header("Stats")]
+    [SerializeField] Slider hpSlider;
     public string fighterName;
     public float maxHP = 50f;
     public float currentHP = 50f;

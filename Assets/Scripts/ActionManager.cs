@@ -5,13 +5,13 @@ using UnityEngine;
 public class ActionManager : MonoBehaviour
 {
     TurnManager turnManager;
-    int action = 0;
 
     private void Start() {
         turnManager = GetComponent<TurnManager>();
+        
     }
 
-    public void TakeAction(PlayerManager source, PlayerManager target){
+    public void TakeAction(PlayerManager source, PlayerManager target, int action){
 
         switch (action)
         {
@@ -26,13 +26,14 @@ public class ActionManager : MonoBehaviour
                 break;                                
             default:                
                 turnManager.battleState = TurnManager.BattleStates.START;
+                Debug.Log("Default");
                 break;
         }        
     }
 
     void NormalAtack(PlayerManager source, PlayerManager target)
     {
-        Debug.Log(source.fighterName+" attacked "+target.name);
+        Debug.Log(source.fighterName+" attacked "+target.fighterName);
         source.action = 0;
         turnManager.battleState = TurnManager.BattleStates.START;
     }
